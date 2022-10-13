@@ -1,5 +1,7 @@
 # BLE On Android 12 Example 🤩
 
+Original source: https://github.com/dotrinhdev/ble_android_12
+
 This proves BLE works on Android 12 without GPS
 
 # Notes

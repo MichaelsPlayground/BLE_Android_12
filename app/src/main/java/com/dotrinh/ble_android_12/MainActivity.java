@@ -8,6 +8,7 @@ package com.dotrinh.ble_android_12;
 import static com.dotrinh.ble_android_12.LogUtil.LogI;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         }).check();
     }
 
+    @SuppressLint("MissingPermission")
     void startScan() {
         BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
             BluetoothDevice device = result.getDevice();
-            String deviceName = device.getName();
+            @SuppressLint("MissingPermission") String deviceName = device.getName();
             if (deviceName == null) {
                 return;
             }
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             return new ChildViewHolder(itemView);
         }
 
+        @SuppressLint("MissingPermission")
         @Override
         public void onBindViewHolder(@NonNull ChildAdapter.ChildViewHolder holder, int position) {
             holder.row.rowItemName.setText(dataArr.get(position).getName());
@@ -181,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 row.cardViewItem.setOnClickListener(this);
             }
 
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
                 mainBinding.progressBar.setVisibility(View.INVISIBLE);
@@ -195,11 +199,13 @@ public class MainActivity extends AppCompatActivity {
 
     public BluetoothGatt bluetoothGatt;
 
+    @SuppressLint("MissingPermission")
     public void connect(BluetoothDevice device) {
         bluetoothGatt = device.connectGatt(this, false, gattCallback);
     }
 
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
+        @SuppressLint("MissingPermission")
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             LogI("onConnectionStateChange status: " + status + " newState:" + newState);
